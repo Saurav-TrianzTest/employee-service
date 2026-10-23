@@ -1,0 +1,34 @@
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21-faststart
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: "Oracle#Pwd123"
+      APP_USER: appuser
+      APP_USER_PASSWORD: "AppUser#123"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 40s
+
+  app:
+    build: .
+    depends_on:
+      oracle:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//oracle:1521/XEPDB1
+      SPRING_DATASOURCE_USERNAME: appuser
+      SPRING_DATASOURCE_PASSWORD: "AppUser#123"
+
+volumes:
+  oracle-data:
+    external: true
+    name: springbootsample_oracle-data
