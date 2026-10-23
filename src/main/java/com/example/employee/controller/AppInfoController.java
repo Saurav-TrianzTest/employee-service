@@ -21,9 +21,9 @@ public class AppInfoController {
 
     @GetMapping("/info")
     public Map<String, String> info() {
-        Map<String, String> info = new LinkedHashMap<String, String>();
+        Map<String, String> info = new LinkedHashMap<>();
         info.put("name", appProperties.getName());
-        info.put("java", "11");
+        info.put("java", "25");
         info.put("database", "oracle");
         return info;
     }

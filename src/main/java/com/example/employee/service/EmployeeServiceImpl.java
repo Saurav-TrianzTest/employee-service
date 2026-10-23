@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponse> getAll() {
         List<Employee> employees = employeeRepository.findAll();
-        List<EmployeeResponse> responses = new ArrayList<EmployeeResponse>();
+        List<EmployeeResponse> responses = new ArrayList<>();
         for (Employee employee : employees) {
             responses.add(employeeMapper.toResponse(employee));
         }
