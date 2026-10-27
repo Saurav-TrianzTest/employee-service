@@ -16,7 +16,7 @@ public class OracleJpaConfig {
             public void customize(Map<String, Object> hibernateProperties) {
                 hibernateProperties.put(
                         "hibernate.dialect",
-                        "org.hibernate.dialect.Oracle12cDialect");
+                        "org.hibernate.dialect.OracleDialect");
             }
         };
     }

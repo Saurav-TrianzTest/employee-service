@@ -1,0 +1,54 @@
+app:
+  name: employee-service
+
+server:
+  port: 8080
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+
+spring:
+  application:
+    name: employee-service
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: appuser
+    password: "AppUser#123"
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      pool-name: OracleHikariPool
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 60000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+      hibernate.jdbc.time_zone: UTC
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+
+info:
+  app:
+    java-version: "17"
+    database: oracle
+
+logging:
+  level:
+    root: INFO
+    com.example.employee: INFO
