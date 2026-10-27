@@ -1,6 +1,6 @@
-# Employee Service (Java 11 + Oracle)
+# Employee Service (Java 17 + Oracle)
 
-Employee API built with Spring Boot 2.7.18, which is the last Spring Boot line that supports Java 11. The build refuses every other JDK. The runtime image is Eclipse Temurin 11.
+Employee API built with Spring Boot 2.7.18, which is the last Spring Boot line that supports Java 11. The build targets Java 17. The runtime image is Eclipse Temurin 17.
 
 ## Layout
 
@@ -18,7 +18,7 @@ src/main/java/com/example/employee
 
 ## Run
 
-Docker is the supported way to run the stack. Oracle Database 21c XE and the application both start from Compose. The application container is built with JDK 11.
+Docker is the supported way to run the stack. Oracle Database 21c XE and the application both start from Compose. The application container is built with JDK 17.
 
 ```bash
 docker compose up --build
@@ -56,17 +56,13 @@ curl -X POST http://localhost:8080/api/v1/employees ^
 
 ## Build on the host
 
-Install JDK 11, then:
+Install JDK 17, then:
 
 ```bash
 mvn test
 mvn spring-boot:run
 ```
 
-`mvn` fails on JDK 17, 21, or 25. Point `JAVA_HOME` at a JDK 11 install, or build through Docker:
-
-```bash
-docker compose build app
-```
+`mvn` requires JDK 17 or later.
 
 Oracle must already be running before `spring-boot:run`. Hibernate creates `EMPLOYEES` and `EMPLOYEE_SEQ` on startup (`ddl-auto: update`).

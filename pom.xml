@@ -15,11 +15,11 @@
     <artifactId>employee-service</artifactId>
     <version>1.0.0</version>
     <name>employee-service</name>
-    <description>Employee service on Java 11 with Oracle Database</description>
+    <description>Employee service on Java 17 with Oracle Database</description>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.release>11</maven.compiler.release>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <ojdbc.version>21.9.0.0</ojdbc.version>
@@ -68,7 +68,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>11</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -76,15 +76,15 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>enforce-java-11</id>
+                        <id>enforce-java-17</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[11,12)</version>
-                                    <message>This project builds and runs on Java 11 only. Install JDK 11 or use Docker.</message>
+                                    <version>[11,18)</version>
+                                    <message>This project builds and runs on Java 17. Install JDK 17 or use Docker.</message>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
