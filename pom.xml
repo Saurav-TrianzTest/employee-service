@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.2.5</version>
         <relativePath/>
     </parent>
 
@@ -15,15 +15,17 @@
     <artifactId>employee-service</artifactId>
     <version>1.0.0</version>
     <name>employee-service</name>
-    <description>Employee service on Java 11 with Oracle Database</description>
+    <description>Employee service on Java 17 with Oracle Database</description>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.release>11</maven.compiler.release>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <ojdbc.version>21.9.0.0</ojdbc.version>
-        <springdoc.version>1.7.0</springdoc.version>
+        <springdoc.version>2.3.0</springdoc.version>
     </properties>
 
     <dependencies>
@@ -45,12 +47,12 @@
         </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
+            <artifactId>ojdbc11</artifactId>
             <version>${ojdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
@@ -67,8 +69,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
-                    <release>11</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -76,15 +79,15 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>enforce-java-11</id>
+                        <id>enforce-java-17</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[11,12)</version>
-                                    <message>This project builds and runs on Java 11 only. Install JDK 11 or use Docker.</message>
+                                    <version>[17,)</version>
+                                    <message>This project requires Java 17 or later. Install JDK 17+ or use Docker.</message>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>

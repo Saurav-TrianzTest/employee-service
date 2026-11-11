@@ -23,7 +23,7 @@ public class AppInfoController {
     public Map<String, String> info() {
         Map<String, String> info = new LinkedHashMap<String, String>();
         info.put("name", appProperties.getName());
-        info.put("java", "11");
+        info.put("java", "17");
         info.put("database", "oracle");
         return info;
     }
