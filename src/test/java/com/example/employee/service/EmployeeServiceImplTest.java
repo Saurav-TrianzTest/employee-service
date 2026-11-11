@@ -99,6 +99,83 @@ class EmployeeServiceImplTest {
         verify(employeeRepository).delete(existing);
     }
 
+    @Test
+    void updateRejectsEmailOwnedByAnotherEmployee() {
+        Employee existing = new Employee();
+        existing.setId(4L);
+        Employee other = new Employee();
+        other.setId(5L);
+        when(employeeRepository.findById(4L)).thenReturn(Optional.of(existing));
+        when(employeeRepository.findByEmailIgnoreCase("grace@example.com")).thenReturn(Optional.of(other));
+
+        assertThrows(DuplicateEmailException.class,
+                () -> employeeService.update(4L, request("Grace", "Hopper", "grace@example.com")));
+        verify(employeeRepository, never()).saveAndFlush(any(Employee.class));
+    }
+
+    @Test
+    void updateAllowsSameEmployeeKeepingEmail() {
+        Employee existing = new Employee();
+        existing.setId(4L);
+        when(employeeRepository.findById(4L)).thenReturn(Optional.of(existing));
+        when(employeeRepository.findByEmailIgnoreCase("grace@example.com")).thenReturn(Optional.of(existing));
+        when(employeeRepository.saveAndFlush(existing)).thenReturn(existing);
+
+        EmployeeResponse response = employeeService.update(4L, request("Grace", "Hopper", "grace@example.com"));
+
+        assertEquals("Hopper", response.getLastName());
+    }
+
+    @Test
+    void updateThrowsWhenEmployeeMissing() {
+        when(employeeRepository.findById(404L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class,
+                () -> employeeService.update(404L, request("A", "B", "a@b.c")));
+    }
+
+    @Test
+    void getByIdReturnsMappedEmployee() {
+        Employee existing = new Employee();
+        existing.setId(2L);
+        existing.setFirstName("Linus");
+        when(employeeRepository.findById(2L)).thenReturn(Optional.of(existing));
+
+        EmployeeResponse response = employeeService.getById(2L);
+
+        assertEquals(Long.valueOf(2L), response.getId());
+        assertEquals("Linus", response.getFirstName());
+    }
+
+    @Test
+    void getAllMapsAllEmployees() {
+        Employee a = new Employee();
+        a.setId(1L);
+        Employee b = new Employee();
+        b.setId(2L);
+        when(employeeRepository.findAll()).thenReturn(java.util.Arrays.asList(a, b));
+
+        java.util.List<EmployeeResponse> result = employeeService.getAll();
+
+        assertEquals(2, result.size());
+        assertEquals(Long.valueOf(2L), result.get(1).getId());
+    }
+
+    @Test
+    void getAllReturnsEmptyListWhenNoEmployees() {
+        when(employeeRepository.findAll()).thenReturn(java.util.Collections.<Employee>emptyList());
+
+        assertEquals(0, employeeService.getAll().size());
+    }
+
+    @Test
+    void deleteThrowsWhenMissing() {
+        when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> employeeService.delete(1L));
+        verify(employeeRepository, never()).delete(any(Employee.class));
+    }
+
     private EmployeeRequest request(String firstName, String lastName, String email) {
         EmployeeRequest request = new EmployeeRequest();
         request.setFirstName(firstName);

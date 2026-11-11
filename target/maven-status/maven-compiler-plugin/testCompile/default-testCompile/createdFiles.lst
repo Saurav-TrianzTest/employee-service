@@ -1,1 +1,17 @@
+com/example/employee/dto/EmployeeRequestTest.class
+com/example/employee/controller/AppInfoControllerTest.class
+com/example/employee/config/AppPropertiesTest.class
+com/example/employee/config/WebConfigTest.class
+com/example/employee/dto/ErrorResponseTest.class
+com/example/employee/repository/EmployeeRepositoryTest.class
+com/example/employee/exception/DuplicateEmailExceptionTest.class
+com/example/employee/entity/EmployeeTest.class
+com/example/employee/controller/GlobalExceptionHandlerTest.class
+com/example/employee/EmployeeApplicationTest.class
+com/example/employee/config/JpaConfigTest.class
+com/example/employee/controller/EmployeeControllerTest.class
+com/example/employee/exception/ResourceNotFoundExceptionTest.class
+com/example/employee/mapper/EmployeeMapperTest.class
 com/example/employee/service/EmployeeServiceImplTest.class
+com/example/employee/dto/EmployeeResponseTest.class
+com/example/employee/config/OracleJpaConfigTest.class
