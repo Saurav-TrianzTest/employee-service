@@ -1,6 +1,6 @@
-# Employee Service (Java 11 + Oracle)
+# Employee Service (Java 25 + Oracle)
 
-Employee API built with Spring Boot 2.7.18, which is the last Spring Boot line that supports Java 11. The build refuses every other JDK. The runtime image is Eclipse Temurin 11.
+Employee API built with Spring Boot 3.5.16, which supports Java 25. The runtime image is Eclipse Temurin 25.
 
 ## Layout
 
@@ -44,7 +44,7 @@ The first Oracle start can take a few minutes. Wait until Compose reports the da
 - `PUT /api/v1/employees/{id}`
 - `DELETE /api/v1/employees/{id}`
 - `GET /actuator/health`
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 
 Create an employee:
 
@@ -56,14 +56,14 @@ curl -X POST http://localhost:8080/api/v1/employees ^
 
 ## Build on the host
 
-Install JDK 11, then:
+Install JDK 25, then:
 
 ```bash
 mvn test
 mvn spring-boot:run
 ```
 
-`mvn` fails on JDK 17, 21, or 25. Point `JAVA_HOME` at a JDK 11 install, or build through Docker:
+`mvn` fails on JDK 11, 17, or 21. Point `JAVA_HOME` at a JDK 25 install, or build through Docker:
 
 ```bash
 docker compose build app
